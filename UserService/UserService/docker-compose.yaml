@@ -1,0 +1,168 @@
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: void
+      POSTGRES_PASSWORD: doiv
+      PG_DATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: void@admin.com
+      PGADMIN_DEFAULT_PASSWORD: doiv
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  # zookeeper:
+  #   container_name: zookeeper_container
+  #   image: confluentinc/cp-zookeeper:latest
+  #   environment:
+  #     ZOOKEEPER_CLIENT_PORT: 2181
+  #     ZOOKEEPER_TICK_TIME: 2000
+  #   networks:
+  #     - kafka
+  #     - elk
+  #   restart: unless-stopped
+
+  # kafka1:
+  #   container_name: kafka1_container
+  #   image: confluentinc/cp-kafka:latest
+  #   depends_on:
+  #     - zookeeper
+  #   environment:
+  #     - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+  #     - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092,PLAINTEXT_INTERNAL://0.0.0.0:29092
+  #     - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka1:29092
+  #     - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+  #     - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT_INTERNAL
+  #     - KAFKA_BROKER_ID=1
+  #     - ALLOW_PLAINTEXT_LISTENER=yes
+  #   ports:
+  #     - "9092:9092"
+  #   networks:
+  #     - kafka
+  #     - elk
+  #   restart: unless-stopped
+
+  # kafka2:
+  #   container_name: kafka2_container
+  #   image: confluentinc/cp-kafka:latest
+  #   depends_on:
+  #     - zookeeper
+  #   environment:
+  #     - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+  #     - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9093,PLAINTEXT_INTERNAL://0.0.0.0:29093
+  #     - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9093,PLAINTEXT_INTERNAL://kafka2:29093
+  #     - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+  #     - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT_INTERNAL
+  #     - KAFKA_BROKER_ID=2
+  #     - ALLOW_PLAINTEXT_LISTENER=yes
+  #   ports:
+  #     - "9093:9093"
+  #   networks:
+  #     - kafka
+  #     - elk
+  #   restart: unless-stopped
+
+  # kafka3:
+  #   container_name: kafka3_container
+  #   image: confluentinc/cp-kafka:latest
+  #   depends_on:
+  #     - zookeeper
+  #   environment:
+  #     - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+  #     - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9094,PLAINTEXT_INTERNAL://0.0.0.0:29094
+  #     - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9094,PLAINTEXT_INTERNAL://kafka3:29094
+  #     - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+  #     - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT_INTERNAL
+  #     - KAFKA_BROKER_ID=3
+  #     - ALLOW_PLAINTEXT_LISTENER=yes
+  #   ports:
+  #     - "9094:9094"
+  #   networks:
+  #     - kafka
+  #     - elk
+  #   restart: unless-stopped
+
+  # elasticsearch:
+  #   container_name: elasticsearch_container
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
+  #   environment:
+  #     - discovery.type=single-node
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   networks:
+  #     - elk
+  #     - kafka
+  #   restart: unless-stopped
+
+  # logstash:
+  #   container_name: logstash_container
+  #   image: docker.elastic.co/logstash/logstash:7.17.10
+  #   volumes:
+  #     - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+  #   depends_on:
+  #     - kafka1
+  #     - elasticsearch
+  #   networks:
+  #     - elk
+  #     - kafka
+  #   ports:
+  #     - "5044:5044"
+  #   restart: unless-stopped
+
+  # kibana:
+  #   container_name: kibana_container
+  #   image: docker.elastic.co/kibana/kibana:7.17.10
+  #   depends_on:
+  #     - elasticsearch
+  #   environment:
+  #     ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+  #   ports:
+  #     - "5601:5601"
+  #   networks:
+  #     - elk
+  #     - kafka
+  #   restart: unless-stopped
+
+  # kafka-ui:
+  #   container_name: kafka-ui_container
+  #   image: provectuslabs/kafka-ui
+  #   environment:
+  #     - KAFKA_CLUSTERS_0_NAME=local
+  #     - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1:29092
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - kafka
+  #   restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+  kafka:
+    driver: bridge
+  elk:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
