@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @RateLimiter(name = "myService", fallbackMethod = "rateLimitFallback")
-    @GetMapping("/secure/api/list")
+    @GetMapping("/api/list")
     @Transactional
     @RolesAllowed("USER")
     public List<ProductApiDb> getAllProductsApi() {

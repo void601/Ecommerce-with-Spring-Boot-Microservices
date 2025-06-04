@@ -107,32 +107,32 @@
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
 
-		<!-- Keycloak Spring Boot Starter -->
-		<dependency>
-			<groupId>org.keycloak</groupId>
-			<artifactId>keycloak-spring-boot-starter</artifactId>
-			<version>22.0.5</version> <!-- Use latest version -->
-		</dependency>
+<!--		&lt;!&ndash; Keycloak Spring Boot Starter &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.keycloak</groupId>-->
+<!--			<artifactId>keycloak-spring-boot-starter</artifactId>-->
+<!--			<version>22.0.5</version> &lt;!&ndash; Use latest version &ndash;&gt;-->
+<!--		</dependency>-->
 
-		<!-- Spring Security Starter (needed for securing endpoints) -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+<!--		&lt;!&ndash; Spring Security Starter (needed for securing endpoints) &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-security</artifactId>-->
+<!--		</dependency>-->
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>-->
+<!--		</dependency>-->
 
-		<!-- Keycloak Adapter BOM (ensures compatibility with the correct version) -->
-		<dependency>
-			<groupId>org.keycloak.bom</groupId>
-			<artifactId>keycloak-adapter-bom</artifactId>
-			<version>22.0.5</version>
-			<type>pom</type>
-			<scope>import</scope>
-		</dependency>
+<!--		&lt;!&ndash; Keycloak Adapter BOM (ensures compatibility with the correct version) &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.keycloak.bom</groupId>-->
+<!--			<artifactId>keycloak-adapter-bom</artifactId>-->
+<!--			<version>22.0.5</version>-->
+<!--			<type>pom</type>-->
+<!--			<scope>import</scope>-->
+<!--		</dependency>-->
 
 	</dependencies>
 

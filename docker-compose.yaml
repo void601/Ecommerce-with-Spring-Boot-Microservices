@@ -60,6 +60,19 @@ services:
       - elk
     restart: unless-stopped
 
+  kafka-ui:
+    container_name: kafka-ui_container
+    image: provectuslabs/kafka-ui
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1:29092
+    ports:
+      - "8088:8088"
+    networks:
+      - kafka
+    restart: unless-stopped
+
+
   # kafka2:
   #   container_name: kafka2_container
   #   image: confluentinc/cp-kafka:latest
@@ -100,58 +113,46 @@ services:
   #     - elk
   #   restart: unless-stopped
 
-  elasticsearch:
-    container_name: elasticsearch_container
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
-    environment:
-      - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    networks:
-      - elk
-      - kafka
-    restart: unless-stopped
-
-  logstash:
-    container_name: logstash_container
-    image: docker.elastic.co/logstash/logstash:7.17.10
-    volumes:
-      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-    depends_on:
-      - kafka1
-      - elasticsearch
-    networks:
-      - elk
-      - kafka
-    ports:
-      - "5044:5044"
-    restart: unless-stopped
-
-  kibana:
-    container_name: kibana_container
-    image: docker.elastic.co/kibana/kibana:7.17.10
-    depends_on:
-      - elasticsearch
-    environment:
-      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
-    ports:
-      - "5601:5601"
-    networks:
-      - elk
-      - kafka
-    restart: unless-stopped
-
-  # kafka-ui:
-  #   container_name: kafka-ui_container
-  #   image: provectuslabs/kafka-ui
+  # elasticsearch:
+  #   container_name: elasticsearch_container
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
   #   environment:
-  #     - KAFKA_CLUSTERS_0_NAME=local
-  #     - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1:29092
+  #     - discovery.type=single-node
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
   #   ports:
-  #     - "8088:8088"
+  #     - "9200:9200"
+  #     - "9300:9300"
   #   networks:
+  #     - elk
+  #     - kafka
+  #   restart: unless-stopped
+
+  # logstash:
+  #   container_name: logstash_container
+  #   image: docker.elastic.co/logstash/logstash:7.17.10
+  #   volumes:
+  #     - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+  #   depends_on:
+  #     - kafka1
+  #     - elasticsearch
+  #   networks:
+  #     - elk
+  #     - kafka
+  #   ports:
+  #     - "5044:5044"
+  #   restart: unless-stopped
+
+  # kibana:
+  #   container_name: kibana_container
+  #   image: docker.elastic.co/kibana/kibana:7.17.10
+  #   depends_on:
+  #     - elasticsearch
+  #   environment:
+  #     ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+  #   ports:
+  #     - "5601:5601"
+  #   networks:
+  #     - elk
   #     - kafka
   #   restart: unless-stopped
 
