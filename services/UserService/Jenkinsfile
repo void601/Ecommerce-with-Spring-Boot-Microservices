@@ -31,7 +31,26 @@ pipeline{
             }
         }
     }
-        
-   }
+  }
+  stage('Push to Google Container Registry') {
+        steps {
+                withCredentials([file(credentialsId: 'gcp-creds', variable: 'GCP_KEY')]) {
+                    sh 'gcloud auth activate-service-account --key-file=$GCP_KEY'
+                    sh "gcloud config set project polar-watch-462012-k9"
+                    sh "gcloud auth configure-docker --quiet"
+                    sh "docker push user-service"
+                }
+            }
+        }
+
+   stage('Deploy to GKE') {
+            steps {
+                withCredentials([file(credentialsId: 'gcp-creds', variable: 'GCP_KEY')]) {
+                    sh 'gcloud auth activate-service-account --key-file=$GCP_KEY'
+                    sh "gcloud container clusters get-credentials k8s-cluster --zone us-central1"
+                    sh 'kubectl apply -f k8s/user-deployment.yaml'
+                    sh 'kubectl apply -f k8s/user-service.yaml'
+                }
+            }
 }
 }
