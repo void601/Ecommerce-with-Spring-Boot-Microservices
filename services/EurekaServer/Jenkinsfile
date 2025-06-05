@@ -15,10 +15,11 @@ pipeline{
      }
     stage("Build Docker Image"){
         steps{
-            dir("services/EurekaServer")
+            dir("services/EurekaServer"){
             script{
                 sh "docker build -t void601/eureka-server"
             }
+        }
         }
     }
     stage("Push Docker Image to Dockerhub"){
