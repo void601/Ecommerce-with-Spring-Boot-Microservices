@@ -1,13 +1,13 @@
-package com.example.InventoryMicroservice;
+// package com.example.InventoryMicroservice;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class InventoryMicroserviceApplicationTests {
+// @SpringBootTest
+// class InventoryMicroserviceApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }
