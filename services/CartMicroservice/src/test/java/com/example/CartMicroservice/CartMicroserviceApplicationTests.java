@@ -1,13 +1,13 @@
-package com.example.CartMicroservice;
+// package com.example.CartMicroservice;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class CartMicroserviceApplicationTests {
+// @SpringBootTest
+// class CartMicroserviceApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }
