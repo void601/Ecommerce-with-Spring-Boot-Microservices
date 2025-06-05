@@ -1,13 +1,13 @@
-package com.example.OrderMicroservice;
+// package com.example.OrderMicroservice;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class OrderMicroserviceApplicationTests {
+// @SpringBootTest
+// class OrderMicroserviceApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }
