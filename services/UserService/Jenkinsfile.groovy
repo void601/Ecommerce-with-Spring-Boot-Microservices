@@ -1,0 +1,34 @@
+pipeline{
+    agent any
+    tools{
+        maven 'maven'
+    }
+    stages{
+     
+     stage("Build"){
+        steps{
+            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/void601/Ecommerce-with-Spring-Boot-Microservices.git']])
+            dir("services/EurekaServer"){
+               sh "mvn clean install"
+            }
+        }
+     }
+    stage("Build Docker Image"){
+        steps{
+            dir("services/EurekaServer"){
+                sh "docker build -t void601/eureka-server ."
+            }
+        }
+      }
+    stage("Push Docker Image to Dockerhub"){
+        steps{
+            script{
+                withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+                sh "docker login -u void601 -p ${dockerhubpwd}"
+                sh "docker push void601/eureka-server"
+                }
+            }
+        }
+}
+}
+}
