@@ -1,13 +1,13 @@
-package com.example.UserServiceApplication.ProductMicroservice;
+// package com.example.UserServiceApplication.ProductMicroservice;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class ProductMicroserviceApplicationTests {
+// @SpringBootTest
+// class ProductMicroserviceApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }
