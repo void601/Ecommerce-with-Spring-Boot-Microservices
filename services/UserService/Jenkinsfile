@@ -34,7 +34,7 @@ pipeline{
   }
   stage('Push to Google Container Registry') {
         steps {
-                withCredentials([file(credentialsId: 'gcp-creds', variable: 'GCP_KEY')]) {
+                withCredentials([file(credentialsId: 'gcp-cred', variable: 'GCP_KEY')]) {
                     sh 'gcloud auth activate-service-account --key-file=$GCP_KEY'
                     sh "gcloud config set project polar-watch-462012-k9"
                     sh "gcloud auth configure-docker --quiet"
