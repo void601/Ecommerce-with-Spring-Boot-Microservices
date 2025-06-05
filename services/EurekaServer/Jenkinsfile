@@ -17,7 +17,7 @@ pipeline{
         steps{
             dir("services/EurekaServer"){
             script{
-                sh "docker build -t void601/eureka-server"
+                sh "docker build -t void601/eureka-server ."
             }
         }
         }
