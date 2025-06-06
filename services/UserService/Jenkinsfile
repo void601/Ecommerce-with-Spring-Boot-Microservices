@@ -48,7 +48,7 @@ pipeline{
 
    stage('Deploy to GKE') {
             steps {
-                withCredentials([file(credentialsId: 'gcp-creds', variable: 'GCP_KEY')]) {
+                withCredentials([file(credentialsId: 'gcp-cred', variable: 'GCP_KEY')]) {
                     sh 'gcloud auth activate-service-account --key-file=$GCP_KEY'
                     sh "gcloud container clusters get-credentials k8s-cluster --zone us-central1"
                     sh 'kubectl apply -f k8s/user-deployment.yaml'
