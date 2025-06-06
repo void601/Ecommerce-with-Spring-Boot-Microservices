@@ -41,7 +41,7 @@ pipeline{
                     sh 'gcloud auth activate-service-account --key-file=$GCP_KEY'
                     sh "gcloud config set project polar-watch-462012-k9"
                     sh "gcloud auth configure-docker --quiet"
-                    sh "docker push user-service"
+                    sh "docker push void601/user-service"
                 }
             }
         }
