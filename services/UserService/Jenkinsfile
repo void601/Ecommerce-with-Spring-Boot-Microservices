@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        CLOUDSDK_CORE_PROJECT='	polar-watch-462012-k9'
+        CLOUDSDK_CORE_PROJECT='polar-watch-462012-k9'
     }
     tools{
         maven 'maven'
@@ -39,7 +39,6 @@ pipeline{
         steps {
                 withCredentials([file(credentialsId: 'gcp-cred', variable: 'GCP_KEY')]) {
                     sh 'gcloud auth activate-service-account --key-file=$GCP_KEY'
-                    sh "gcloud config set project polar-watch-462012-k9"
                     sh "gcloud auth configure-docker --quiet"
                     sh "docker push void601/user-service"
                 }
@@ -50,7 +49,6 @@ pipeline{
             steps {
                 withCredentials([file(credentialsId: 'gcp-cred', variable: 'GCP_KEY')]) {
                     sh 'gcloud auth activate-service-account --key-file=$GCP_KEY'
-                    sh "gcloud config set project polar-watch-462012-k9"
                     sh "gcloud container clusters get-credentials k8s-cluster --zone us-central1"
                     sh 'kubectl apply -f k8s/user-deployment.yaml'
                     sh 'kubectl apply -f k8s/user-service.yaml'
