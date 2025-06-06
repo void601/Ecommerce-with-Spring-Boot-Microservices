@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment{
+        CLOUDSDK_CORE_PROJECT='	polar-watch-462012-k9'
+    }
     tools{
         maven 'maven'
     }
