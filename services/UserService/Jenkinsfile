@@ -50,7 +50,7 @@ pipeline{
                 withCredentials([file(credentialsId: 'gcp-cred', variable: 'GCP_KEY')]) {
                     sh 'gcloud auth activate-service-account --key-file=$GCP_KEY'
                     sh "gcloud container clusters get-credentials k8s-cluster --zone us-central1"
-                    dir("K8s")
+                    dir("K8s/")
                     {
                         sh 'kubectl apply -f user-deployment'
                         sh 'kubectl apply -f user-service'
